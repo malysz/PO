@@ -6,13 +6,16 @@ package agh.cs.lab2;
 public class Car {
     private Position position;
     private MapDirection direction;
+    private IWorldMap worldMap;
 
     public Car(IWorldMap map){
-
+        this.worldMap = map;
     }
 
     public Car(IWorldMap map, int x, int y){
-
+        this.worldMap = map;
+        this.position = new Position(x,y);
+        this.direction = MapDirection.North;
     }
 
     public Car(int x, int y){
@@ -24,6 +27,10 @@ public class Car {
         String info = new String();
         info = position.toString()+" "+direction.toString();
         return info;
+    }
+
+    public Position getPosition(){
+        return this.position;
     }
 
     public void move(MoveDirection direction){
