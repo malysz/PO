@@ -25,7 +25,20 @@ public class Car {
     }
     public String toString(){
         String info = new String();
-        info = position.toString()+" "+direction.toString();
+        switch(this.direction){
+            case North:
+                info = "^";
+                break;
+            case South:
+                info = "v";
+                break;
+            case East:
+                info = ">";
+                break;
+            case West:
+                info = ">";
+                break;
+        }
         return info;
     }
 
@@ -34,8 +47,6 @@ public class Car {
     }
 
     public void move(MoveDirection direction){
-        Position low = new Position(0,0);
-        Position high = new Position(4,4);
         Position pos2 = new Position(0,0);
         switch(direction){
             case Backward:
@@ -53,7 +64,7 @@ public class Car {
                         pos2 = new Position(-1, 0);
                         break;
                 }
-                if (this.position.add(pos2).larger(low) && this.position.add(pos2).smaller(high))
+                if (this.worldMap.canMoveTo(this.position.add(pos2)))
                     this.position=this.position.add(pos2);
                 break;
             case Right:
@@ -77,7 +88,7 @@ public class Car {
                         pos2 = new Position(1, 0);
                         break;
                 }
-                if (this.position.add(pos2).larger(low) && this.position.add(pos2).smaller(high))
+                if (this.worldMap.canMoveTo(this.position.add(pos2)))
                     this.position=this.position.add(pos2);
                 break;
         }

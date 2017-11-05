@@ -11,7 +11,7 @@ public class CarTest{
     @Test
     public void toStringTest(){
 
-        assertEquals("(2,2) Polnoc", new Car(2,2).toString());
+        assertEquals("^", new Car(2,2).toString());
     }
 
     @Test
