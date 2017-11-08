@@ -36,14 +36,18 @@ public class RectangularMap implements IWorldMap {
     public boolean isOccupied(Position position){
         for(int i=0;i<cars.size();i++){
             Position pos = cars.get(i).getPosition();
-            if(pos == position) return false;
+            if(pos == position) return true;
         }
-        return true;
+        return false;
     }
 
     @Override
     public boolean place(Car car){
-
+        Position pos = car.getPosition();
+        for(int i=0; i<cars.size(); i++)
+            if(cars.get(i).getPosition() == pos) return false;
+        cars.add(car);
+        return true;
     }
 
     @Override
