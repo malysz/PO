@@ -5,22 +5,12 @@ package agh.cs.lab2;
  */
 public class CarSystem {
     public static void main(String[] args){
-        /*Position position1 = new Position(1,2);
-        System.out.println(position1);
-        Position position2 = new Position(-2,1);
-        System.out.println(position2);
-        System.out.println(position1.add(position2));*/
-        Car car = new Car(2,2);
-        String a = new String();
-        a=car.toString();
-        System.out.println(a);
-        car.move(MoveDirection.Right);
-        car.move(MoveDirection.Forward);
-        car.move(MoveDirection.Forward);
-        car.move(MoveDirection.Forward);
-        car.move(MoveDirection.Backward);
-        a=car.toString();
-        System.out.println(a);
+        RectangularMap map = new RectangularMap(5,5);
+        Car car = new Car(map,2,2);
+        map.place(car);
+        MoveDirection [] dir = {MoveDirection.Forward,MoveDirection.Right, MoveDirection.Forward};
+        map.run(dir);
+        System.out.print(map.toString());
     }
 }
 
