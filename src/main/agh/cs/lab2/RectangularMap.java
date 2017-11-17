@@ -6,10 +6,9 @@ import java.util.List;
 /**
  * Created by student46 on 2017-10-27.
  */
-public class RectangularMap implements IWorldMap {
+public class RectangularMap extends AbstractWorldMap {
     public final int width;
     public final int height;
-    List<Car> cars = new ArrayList<>();
 
     public RectangularMap(int width, int height){
         this.width=width;
@@ -25,35 +24,10 @@ public class RectangularMap implements IWorldMap {
         return true;
     }
 
-    public void run(MoveDirection[] directions){
-        int n = cars.size();
-        for(int i=0; i<directions.length; i++){
-            cars.get(i%n).move(directions[i]);
-        }
-    }
-
     @Override
     public boolean isOccupied(Position position){
-        for(int i=0;i<cars.size();i++)
-            if(position.equals(cars.get(i).getPosition())) return true;
+        for (Car car : cars) if (position.equals(car.getPosition())) return true;
         return false;
-    }
-
-    @Override
-    public boolean place(Car car){
-        Position pos = car.getPosition();
-        for(int i=0; i<cars.size(); i++)
-            if(cars.get(i).getPosition() == pos) return false;
-        cars.add(car);
-        return true;
-    }
-
-    @Override
-    public Object objectAt(Position position){
-        for(int i=0;i<cars.size();i++){
-            if(cars.get(i).getPosition().equals(position)) return cars.get(i);
-        }
-        return null;
     }
 
     public String toString(){

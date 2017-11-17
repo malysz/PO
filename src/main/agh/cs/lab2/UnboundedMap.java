@@ -2,7 +2,7 @@ package agh.cs.lab2;
 
 import java.util.List;
 
-public class UnboundedMap implements IWorldMap {
+public class UnboundedMap extends AbstractWorldMap {
     private int numOfHayStacks;
     List <Car> cars;
     List <HayStack> stacks;
@@ -11,40 +11,12 @@ public class UnboundedMap implements IWorldMap {
         this.numOfHayStacks = hayStacks;
     }
 
-    @Override
-    public boolean canMoveTo(Position position) {
-        for(int i=0; i<cars.size(); i++)
-            if(position.equals(cars.get(i).getPosition())) return false;
-        for(int i=0; i<stacks.size(); i++)
-            if(position.equals(stacks.get(i).getPosition())) return false;
-        return true;
-    }
-
-    @Override
-    public boolean place(Car car) {
-        Position pos = car.getPosition();
-        if(!this.isOccupied(pos)){
-            this.cars.add(car);
-            return true;
-        }
-        else return false;
-    }
-
     public boolean place(HayStack stack) {
         Position pos = stack.getPosition();
         if(!this.isOccupied(pos)){
             this.stacks.add(stack);
             return true;
-        }
-        else return false;
-    }
-
-    @Override
-    public void run(MoveDirection[] directions) {
-        int n = cars.size();
-        for(int i=0; i<directions.length; i++){
-            cars.get(i%n).move(directions[i]);
-        }
+        } else return false;
     }
 
     @Override
@@ -64,16 +36,30 @@ public class UnboundedMap implements IWorldMap {
 
     @Override
     public Object objectAt(Position position) {
-        for(int i=0;i<cars.size();i++){
-            if(cars.get(i).getPosition().equals(position)) return cars.get(i);
+        for (Car car : cars) {
+            if (car.getPosition().equals(position)) return car;
         }
-        for(int i=0;i<stacks.size();i++){
-            if(stacks.get(i).getPosition().equals(position)) return stacks.get(i);
+        for (HayStack stack : stacks) {
+            if (stack.getPosition().equals(position)) return stack;
         }
         return null;
     }
 
     public String toString(){
-        return " ";
+        Position min = cars.get(0).getPosition();
+        Position max = cars.get(0).getPosition();
+        Position tmp;
+        for(Car car : cars){
+            tmp = car.getPosition();
+            if(tmp.smaller(min)) min = tmp;
+            if(tmp.larger(max)) max = tmp;
+        }
+        for(HayStack stack : stacks){
+            tmp = stack.getPosition();
+            if(tmp.smaller(min)) min = tmp;
+            if(tmp.larger(max)) max = tmp;
+        }
+        MapVisualizer visualizer = new MapVisualizer();
+        return visualizer.dump(this,min, max);
     }
 }
