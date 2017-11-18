@@ -7,15 +7,16 @@ public class OptionsParser {
             if(arg[x]=="f" || arg[x]=="forward"){
                 tab[x]=MoveDirection.Forward;
             }
-            if(arg[x]=="b" || arg[x]=="backward"){
+            else if(arg[x]=="b" || arg[x]=="backward"){
                 tab[x]=MoveDirection.Backward;
             }
-            if(arg[x]=="r" || arg[x]=="right"){
+            else if(arg[x]=="r" || arg[x]=="right"){
                 tab[x]=MoveDirection.Right;
             }
-            if(arg[x]=="l" || arg[x]=="left"){
+            else if(arg[x]=="l" || arg[x]=="left"){
                 tab[x]=MoveDirection.Left;
             }
+            else throw new IllegalArgumentException(arg[x] +" Niewlasciwy argument");
         }
         return tab;
     }

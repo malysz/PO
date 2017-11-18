@@ -32,7 +32,10 @@ abstract class AbstractWorldMap implements IWorldMap{
         if (!this.isOccupied(pos)) {
             this.cars.add(car);
             return true;
-        } else return false;
+        } else {
+            throw new IllegalArgumentException(pos.toString()+" jest zajeta");
+            //return false;
+        }
     }
 
     @Override

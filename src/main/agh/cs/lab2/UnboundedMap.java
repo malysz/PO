@@ -1,11 +1,11 @@
 package agh.cs.lab2;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public class UnboundedMap extends AbstractWorldMap {
     private int numOfHayStacks;
-    List <Car> cars;
-    List <HayStack> stacks;
+    List <HayStack> stacks = new LinkedList<>();
 
     public UnboundedMap(int hayStacks) {
         this.numOfHayStacks = hayStacks;
@@ -16,7 +16,10 @@ public class UnboundedMap extends AbstractWorldMap {
         if(!this.isOccupied(pos)){
             this.stacks.add(stack);
             return true;
-        } else return false;
+        } else {
+            throw new IllegalArgumentException(pos.toString()+" jest zajeta");
+            //return false;
+        }
     }
 
     @Override
